@@ -12,6 +12,6 @@ if 'linux' in platform.system().lower():
         run_checker = lorun.run_checker
         check = lorun.check
     except Exception as ex:
-        from ._lorun_ext import run, run_interactive, run_checker, check
+        from lorun._lorun_ext import run, run_interactive, run_checker, check
 else:
     run = run_interactive = run_checker = check = unsupport
