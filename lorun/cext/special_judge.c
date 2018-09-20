@@ -30,11 +30,15 @@ int special_checker(struct Runobj *runobj, struct Result *rst) {
 		close(fd_err[0]);
 		
 		if (runobj->fd_in != -1)
-			if (dup2(runobj->fd_out, 0) == -1)
+			if (dup2(runobj->fd_in, STDIN_FILENO) == -1)
+				RAISE_EXIT("dup2 stdin failure!")
+		
+		if (runobj->fd_out != -1)
+			if (dup2(runobj->fd_out, STDOUT_FILENO) == -1)
 				RAISE_EXIT("dup2 stdin failure!")
 	
 		if (runobj->fd_err != -1)
-		    if (dup2(runobj->fd_err, 2) == -1)
+		    if (dup2(runobj->fd_err, STDERR_FILENO) == -1)
 			RAISE_EXIT("dup2 stderr failure")
 			
 		if (spj_reslimit(runobj) == -1)
